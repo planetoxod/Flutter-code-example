@@ -4,25 +4,6 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:our_pizza/core/injection/injection.dart';
-import 'package:our_pizza/core/presentation/widgets/bottom_sheets/alert_bottom_sheet.dart';
-import 'package:our_pizza/core/presentation/widgets/builders/scroll_controller_builder.dart';
-import 'package:our_pizza/core/presentation/widgets/builders/tab_controller_builder.dart';
-import 'package:our_pizza/core/presentation/widgets/buttons/my_ink_well.dart';
-import 'package:our_pizza/core/presentation/widgets/buttons/responsive_elevation_button.dart';
-import 'package:our_pizza/core/presentation/widgets/indicators/loader.dart';
-import 'package:our_pizza/extensions.dart';
-import 'package:our_pizza/features/auth/infrastructure/fields/phone_field.dart';
-import 'package:our_pizza/features/auth/presentation/blocs/location/location_bloc.dart';
-import 'package:our_pizza/features/auth/presentation/blocs/profile/profile_bloc.dart';
-import 'package:our_pizza/features/foods/infrastructure/models/internal/food_section.dart';
-import 'package:our_pizza/features/foods/infrastructure/models/internal/type_sorting.dart';
-import 'package:our_pizza/features/foods/presentation/blocs/food/food_bloc.dart';
-import 'package:our_pizza/features/foods/presentation/pages/food_section_page.dart';
-import 'package:our_pizza/features/navigation/presentation/blocs/navigation/navigation_bloc.dart';
-import 'package:our_pizza/features/navigation/presentation/widgets/navigation_drawer.dart';
-import 'package:our_pizza/generated/l10n.dart';
-import 'package:our_pizza/ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FoodsPage extends StatefulWidget {
@@ -397,66 +378,6 @@ class _FoodsPageState extends State<FoodsPage> {
     );
   }
 
-  Widget _buildBonusButton(BuildContext cotnext) {
-    return BlocBuilder<ProfileBloc, ProfileState>(
-      builder: (context, state) {
-        if (state.user?.isAnonymous ?? true) {
-          return const SizedBox();
-        }
 
-        return Padding(
-          padding: const EdgeInsets.only(right: 8),
-          child: InkWell(
-            onTap: () {
-              showAlertBottomSheet(
-                context,
-                title: Text('Бонусные рубли'),
-                body: Text(
-                    'Бонусы начисляются после заказа. Их можно использовать в виде скидки при следующем заказе. На вашем счету ${state
-                        .maxScore} бонусных рублей.'),
-                button: Text(S.current.understood),
-              );
-              //!
-            },
-            child: Row(
-              children: [
-                Text(
-                  state.maxScore.toString(),
-                  style: const TextStyle(
-                    fontSize: 21,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(width: 4),
-                const FaIcon(
-                  FontAwesomeIcons.rubleSign,
-                  size: 18,
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
 
-  Widget _buildPhoneButton(BuildContext context) {
-    return BlocBuilder<LocationBloc, LocationState>(
-      builder: (context, state) {
-        final isValidPhone = PhoneField(state.current?.phone ?? '').isValid;
-        return Visibility(
-          maintainSize: isValidPhone,
-          maintainState: isValidPhone,
-          maintainAnimation: isValidPhone,
-          child: IconButton(
-            padding: const EdgeInsets.only(right: 8),
-            onPressed: () => launch('tel:${state.current?.phone}'),
-            icon: const FaIcon(
-              FontAwesomeIcons.phone,
-            ),
-          ),
-        );
-      },
-    );
-  }
 }

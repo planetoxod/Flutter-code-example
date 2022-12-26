@@ -6,7 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:swipe_cards/swipe_cards.dart';
-import 'package:asker/model/content.dart';
+
 import '../Http_Client/Http_Client.dart';
 import '../Provoder/city_id_provider.dart';
 import '../Provoder/current_user_provider.dart';
